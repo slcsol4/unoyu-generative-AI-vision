@@ -1,7 +1,6 @@
 # 以下を「app.py」に書き込み
 import os
 import streamlit as st
-import openai
 import pandas as pd
 import urllib.request
 import json
@@ -9,11 +8,11 @@ from io import BytesIO
 import base64
 
 from PIL import Image
+import requests
+from dotenv import load_dotenv
 
-openai.api_type = "azure"
-openai.api_base = "https://unoyuu-instance.openai.azure.com/"
-openai.api_version = "2023-07-01-preview"
-openai.api_key = os.environ.get('UNOYU_GPT4_API_KEY')
+# .env ファイルから環境変数をロード
+load_dotenv()
 
 if "answer" not in st.session_state:
    st.session_state["answer"] = ""
@@ -48,7 +47,7 @@ def communicate():
 
     url = 'https://unoyu-mls-workspace-bdajz.japaneast.inference.ml.azure.com/score'
     # Replace this with the primary/secondary key, AMLToken, or Microsoft Entra ID token for the endpoint
-    api_key = '97pGiDUW3TxylzXtXSQjraeKM7abPEPAYdo70R4dvClQjEXH9dxSJQQJ99BIAAAAAAAAAAAAINFRAZML2NKt'
+    api_key = os.environ.get('UNOYU_GPT4_API_KEY')
     if not api_key:
         raise Exception("A key should be provided to invoke the endpoint")
 
