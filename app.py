@@ -8,7 +8,6 @@ from io import BytesIO
 import base64
 
 from PIL import Image
-import requests
 from dotenv import load_dotenv
 
 # .env ファイルから環境変数をロード
@@ -96,7 +95,7 @@ with col2:
      buffered2 = BytesIO()
      img2.save(buffered2, format="jpeg")
      st.session_state["img2_base64"] = base64.b64encode(buffered2.getvalue()).decode("utf-8")
-st.button("Do Check!", on_click=communicate)
+st.button("Do Check!", on_click=communicate, use_container_width=True, type="primary")
 
 if st.session_state["encode_image"]:
     st.text_area("aaaa", key="user_input_img1_base64",value=st.session_state["encode_image"])
